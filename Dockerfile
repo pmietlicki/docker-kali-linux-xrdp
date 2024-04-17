@@ -1,11 +1,14 @@
-# Utiliser l'image de Kali avec XFCE comme base
-FROM kalilinux/kali-rolling:xfce
+# Utiliser l'image officielle de Kali Linux comme base
+FROM kalilinux/kali-rolling
 
-# Installer xrdp
-RUN apt-get update && apt-get install -y xrdp sudo
+# Définir l'argument pour les interactions non interactives
+ARG DEBIAN_FRONTEND=noninteractive
 
-# Configurer xrdp
-RUN service xrdp start
+# Mettre à jour le système et installer XFCE et xrdp
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get install -y kali-desktop-xfce xrdp sudo \
+    && apt-get clean \
+    && service xrdp start
 
 # Ajouter un utilisateur non-root pour utiliser XRDP
 RUN useradd -m kali -s /bin/bash \
