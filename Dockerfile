@@ -1,11 +1,15 @@
 # Utiliser l'image officielle de Kali Linux comme base
 FROM kalilinux/kali-rolling
 
-# Mettre à jour les listes de paquets et le système
-RUN apt-get update && apt-get -y full-upgrade
+# Définir l'argument pour les interactions non interactives
+ARG DEBIAN_FRONTEND=noninteractive
 
-# Installer l'environnement de bureau XFCE et le métapaquet avec tous les outils
-RUN apt-get install -y kali-desktop-xfce kali-linux-everything xrdp
+# Nettoyer les caches d'APT et mettre à jour le système
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* && apt-get update && apt-get -y full-upgrade
+
+# Installer l'environnement de bureau XFCE, xrdp, et quelques outils de Kali
+RUN apt-get install -y kali-desktop-xfce xrdp
+RUN apt-get install -y kali-tools-top10
 
 # Supprimer le fichier PID existant et configurer xrdp
 RUN rm -f /var/run/xrdp/xrdp-sesman.pid && service xrdp start
