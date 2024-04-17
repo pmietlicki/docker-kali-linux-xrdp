@@ -5,8 +5,8 @@ FROM kalilinux/kali-rolling
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Mettre à jour le système et installer XFCE et xrdp
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y kali-desktop-xfce xrdp sudo \
+RUN apt-get update && apt-get full-upgrade -y \
+    && apt-get install -y kali-desktop-xfce kali-linux-everything xrdp sudo \
     && apt-get clean \
     && service xrdp start
 
