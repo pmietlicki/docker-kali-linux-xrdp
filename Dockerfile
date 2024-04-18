@@ -9,7 +9,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* && apt-get update && apt-get -y
 
 # Installer l'environnement de bureau XFCE, xrdp, et quelques outils de Kali
 RUN apt-get install -y kali-desktop-xfce xrdp
-RUN apt-get install -y kali-tools-top10
+RUN apt-get install -y kali-linux-everything
 
 # Supprimer le fichier PID existant et configurer xrdp
 RUN rm -f /var/run/xrdp/xrdp-sesman.pid && service xrdp start
